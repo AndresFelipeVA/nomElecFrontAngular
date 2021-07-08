@@ -1,0 +1,83 @@
+<div class="container mt-5">
+
+  <div class="row align-items-center">
+    <div class="col">
+      <a class="navbar-brand" href="https://www.tlm.com.co/">
+        <img src="\assets\TLM_logo.png" alt="TLM logo">
+      </a>
+    </div>
+    <div class="col">
+      <h1>
+        {{title}}
+      </h1>
+    </div>
+  </div>
+
+
+<hr>
+
+<form autocomplete="off" (ngSubmit)="guardar(mFormu)" #mFormu="ngForm">
+  
+  <div class="row mb-3">
+    <label class="col-2 col-form-label">Compañía</label>
+    <div class="col">
+      <select class="form-select"
+              name="company"
+              [ngModel]="company"
+              [class.is-invalid]="companySel.invalid && companySel.touched"
+              required
+              #companySel="ngModel">
+            <option *ngFor="let company of companies"
+                    [value]="company">
+              {{company}}
+            </option>
+      </select>
+      <span *ngIf="companySel.invalid && companySel.touched" class="form-text text-danger">Debe seleccionar una compañía</span>
+
+    </div>
+  </div>
+
+  <div class="row mb-3">
+    <label class="col-2 col-form-label">Instancia</label>
+    <div class="col">
+      <select class="form-select"
+              name="instance"
+              [ngModel]="instance"
+              [class.is-invalid]="instanceSel.invalid && instanceSel.touched"
+              required
+              #instanceSel="ngModel">
+            <option *ngFor="let instance of instances"
+                    [value]="instance">
+              {{instance}}
+            </option>
+      </select>
+      <span *ngIf="instanceSel.invalid && instanceSel.touched" class="form-text text-danger">Debe seleccionar una instancia</span>
+
+    </div>
+  </div>
+
+  <div class="row mb-3">
+    <label class="col-2 col-form-label">Operación</label>
+    <div class="col">
+      <div *ngFor="let operation of operations" class="form-check">
+        <input class="form-check-input"
+            type="radio" 
+            name="operation"
+            [value]="operation"
+            [class.is-invalid]="operation.invalid && operation.touched"
+            required
+            [ngModel]="operation">
+        <label class="form-check-label">{{operation}}</label>
+      </div>
+
+    </div>
+  </div>
+
+    <div class="d-grid">
+      <button type="submit" class="btn btn-outline-primary">
+        Ejecutar operación
+      </button>
+    </div>
+
+</form>
+</div>
