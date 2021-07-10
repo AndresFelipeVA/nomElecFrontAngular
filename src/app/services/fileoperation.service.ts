@@ -20,11 +20,13 @@ export class FileoperationService {
   }
   
   DownloadXMLFile(company:string, instance:string) {
-    return this.mHttpClient.get('http://localhost:9091/api/v1/nomiIndi/downloadXmlAll/' + company);
+    return this.mHttpClient.get("https://file-examples-com.github.io/uploads/2017/02/file_example_XML_24kb.xml",{responseType:'blob'});
+    //return this.mHttpClient.get('http://localhost:9091/api/v1/nomiIndi/downloadXmlAll/' + company);
   }
   
   DownloadJSONFile(company:string, instance:string) {
-    return this.mHttpClient.get('http://localhost:9092/nomiIndi/json/download/' + company);
+    return this.mHttpClient.get("https://file-examples-com.github.io/uploads/2017/02/file_example_JSON_1kb.json",{responseType:'blob'});
+    //return this.mHttpClient.get('http://localhost:9092/nomiIndi/json/download/' + company);
   }
 
 }

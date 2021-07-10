@@ -101,8 +101,12 @@ export class AppComponent {
     );
   }
 
-  download(resp: Object) {
+  download(resp: Blob) {
     console.log("Descargando");
+    let a = document.createElement("a");
+          a.href = URL.createObjectURL(resp);
+          a.download = (this.company + "-" + this.instance);
+          a.click();
   }
 
 }
