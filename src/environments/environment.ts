@@ -3,7 +3,10 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
-  production: false
+  production: false,
+  backendXmlUrl: 'http://localhost:9091/api/v1/nomiIndi/',
+  backendJsonUrl: 'http://localhost:9092/nomiIndi/json/',
+  testUrl: 'https://file-examples-com.github.io/uploads/2017/02/'
 };
 
 /*

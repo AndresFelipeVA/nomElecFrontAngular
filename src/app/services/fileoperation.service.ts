@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { map } from 'rxjs/operators';
+import { environment } from 'src/environments/environment';
 
 
 @Injectable({
@@ -12,21 +12,21 @@ export class FileoperationService {
 
 
   GenerateXMLFile(company:string, instance:string) {
-    return this.mHttpClient.get('http://localhost:9091/api/v1/nomiIndi/xmlAll/' + company);
+    return this.mHttpClient.get(environment.backendXmlUrl + 'xmlAll/' + company);
   }
   
   GenerateJSONFile(company:string, instance:string) {
-    return this.mHttpClient.get('http://localhost:9092/nomiIndi/json/' + company);
+    return this.mHttpClient.get(environment.backendJsonUrl + company);
   }
   
   DownloadXMLFile(company:string, instance:string) {
-    return this.mHttpClient.get("https://file-examples-com.github.io/uploads/2017/02/file_example_XML_24kb.xml",{responseType:'blob'});
-    //return this.mHttpClient.get('http://localhost:9091/api/v1/nomiIndi/downloadXmlAll/' + company);
+    return this.mHttpClient.get(environment.testUrl + 'file_example_XML_24kb.xml', {responseType:'blob'});
+    // return this.mHttpClient.get(environment.backendXmlUrl + 'downloadXmlAll/' + company, {responseType:'blob'});
   }
   
   DownloadJSONFile(company:string, instance:string) {
-    return this.mHttpClient.get("https://file-examples-com.github.io/uploads/2017/02/file_example_JSON_1kb.json",{responseType:'blob'});
-    //return this.mHttpClient.get('http://localhost:9092/nomiIndi/json/download/' + company);
+    return this.mHttpClient.get(environment.testUrl + 'file_example_JSON_1kb.json', {responseType:'blob'});
+    // return this.mHttpClient.get(environment.backendJsonUrl + 'download/' + company, {responseType:'blob'});
   }
 
 }
