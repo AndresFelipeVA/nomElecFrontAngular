@@ -1,4 +1,4 @@
-<div class="container mt-5">
+<div class="container shadow mt-5">
 
   <div class="row align-items-center">
     <div class="col">
@@ -59,22 +59,23 @@
   <div class="row mb-3">
     <label class="col-2 col-form-label">Operación</label>
     <div class="col">
-      <div *ngFor="let operation of operations" class="form-check">
+      <div *ngFor="let operation of operations; let idOper=index" class="form-check">
         <input class="form-check-input"
             type="radio" 
             name="operation"
+            [id]="idOper"
             [value]="operation"
             [class.is-invalid]="operation.invalid && operation.touched"
             required
             [ngModel]="operation">
-        <label class="form-check-label">{{operation}}</label>
+        <label class="form-check-label" [for]="idOper">{{operation}}</label>
       </div>
 
     </div>
   </div>
 
     <div class="d-grid">
-      <button type="submit" class="btn btn-outline-primary">
+      <button type="submit" class="btn btn-outline-primary my-3">
         Ejecutar operación
       </button>
     </div>
