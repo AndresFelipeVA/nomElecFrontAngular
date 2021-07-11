@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import Swal, { SweetAlertIcon } from 'sweetalert2';
+import { FileDownload } from './models/file-download.model';
 import { FileoperationService } from './services/fileoperation.service';
 
 @Component({
@@ -82,7 +83,7 @@ export class AppComponent {
   
   DownloadXMLFile() {
     this.mOperation.DownloadXMLFile(this.company, this.instance).subscribe(
-      (resp) => {
+      (resp: FileDownload) => {
         this.display("Archivo XML Creado exitosamente", 'success');
         this.download(resp);
       },
@@ -94,7 +95,7 @@ export class AppComponent {
   
   DownloadJSONFile() {
     this.mOperation.DownloadJSONFile(this.company, this.instance).subscribe(
-      (resp) => {
+      (resp: FileDownload) => {
         this.display("Archivo JSON Creado exitosamente", 'success');
         this.download(resp);
       },
@@ -104,13 +105,12 @@ export class AppComponent {
     );
   }
 
-  download(resp: Blob) {
+  download(resp: FileDownload) {
     console.log("Descargando");
     let a = document.createElement("a");
-          a.href = URL.createObjectURL(resp);
-          a.download = (this.company + "-" + this.instance);
+          a.href = URL.createObjectURL(resp.file);
+          a.download = (resp.fileName);
           a.click();
-          this.cargando=false;
   }
 
   display(mensaje: string, tipo: SweetAlertIcon)
