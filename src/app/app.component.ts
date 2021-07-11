@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { NgForm } from '@angular/forms';
+import Swal, { SweetAlertIcon } from 'sweetalert2';
 import { FileoperationService } from './services/fileoperation.service';
 
 @Component({
@@ -60,14 +61,10 @@ export class AppComponent {
   GenerateXMLFile() { 
     this.mOperation.GenerateXMLFile(this.company, this.instance).subscribe(
       (resp) => {
-        window.alert("Archivo XML Creado exitosamente");
-        console.log("Archivo XML Creado exitosamente");
-        this.cargando=false;
+        this.display("Archivo XML Creado exitosamente", 'success');
       },
       (error) => {
-        window.alert("Problemas en la generación del archivo XML");
-        console.log("Problemas en la generación del archivo XML");
-        this.cargando=false;
+        this.display("Problemas en la generación del archivo XML", 'error');
       }
     );
   }
@@ -75,14 +72,10 @@ export class AppComponent {
   GenerateJSONFile() {
     this.mOperation.GenerateJSONFile(this.company, this.instance).subscribe(
       (resp) => {
-        window.alert("Archivo JSON Creado exitosamente");
-        console.log("Archivo JSON Creado exitosamente");
-        this.cargando=false;
+        this.display("Archivo JSON Creado exitosamente", 'success');
       },
       (error) => {
-        window.alert("Problemas en la generación del archivo JSON");
-        console.log("Problemas en la generación del archivo JSON");
-        this.cargando=false;
+        this.display("Problemas en la generación del archivo JSON", 'error');
       }
     );
   }
@@ -90,14 +83,11 @@ export class AppComponent {
   DownloadXMLFile() {
     this.mOperation.DownloadXMLFile(this.company, this.instance).subscribe(
       (resp) => {
-        window.alert("Archivo XML Creado exitosamente");
-        console.log("Archivo XML Creado exitosamente");
+        this.display("Archivo XML Creado exitosamente", 'success');
         this.download(resp);
       },
       (error) => {
-        window.alert("Problemas en la generación/descarga del archivo XML");
-        console.log("Problemas en la generación/descarga del archivo XML");
-        this.cargando=false;
+        this.display("Problemas en la generación/descarga del archivo XML", 'error');
       }
     );
   }
@@ -105,14 +95,11 @@ export class AppComponent {
   DownloadJSONFile() {
     this.mOperation.DownloadJSONFile(this.company, this.instance).subscribe(
       (resp) => {
-        window.alert("Archivo JSON Creado exitosamente");
-        console.log("Archivo JSON Creado exitosamente");
+        this.display("Archivo JSON Creado exitosamente", 'success');
         this.download(resp);
       },
       (error) => {
-        window.alert("Problemas en la generación/descarga del archivo JSON");
-        console.log("Problemas en la generación/descarga del archivo JSON");
-        this.cargando=false;
+        this.display("Problemas en la generación/descarga del archivo JSON", 'error');
       }
     );
   }
@@ -126,7 +113,16 @@ export class AppComponent {
           this.cargando=false;
   }
 
+  display(mensaje: string, tipo: SweetAlertIcon)
+  {
+    console.log(mensaje);
+    this.cargando=false;
+    Swal.fire({
+      icon: tipo,
+      text: mensaje,
+      confirmButtonText: 'Aceptar',
+      confirmButtonColor: '#0d6efd'
+    });
+  }
+
 }
-
-
-
