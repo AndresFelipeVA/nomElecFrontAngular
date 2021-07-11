@@ -9,12 +9,13 @@ import { FileoperationService } from './services/fileoperation.service';
 })
 export class AppComponent {
   title = 'Nomina Electronica';
-  companies = ["01", "02", "03"];
-  instances = ["NOMUSD01", "NOMUSD02"];
+  // companies = ["01", "02", "03"];
+  // instances = ["NOMUSD01", "NOMUSD02"];
   operations = ["Generar XML", "Generar JSON", "Generar y descargar XML", "Generar y descargar JSON"];
 
   company = "";
   instance = "";
+  cargando = false;
 
   constructor(private mOperation: FileoperationService) { }
 
@@ -28,8 +29,9 @@ export class AppComponent {
       return;
     }
 
-    this.company=mForm.controls.company.value;
-    this.instance=mForm.controls.instance.value;
+    this.company=mForm.controls.company.value.toUpperCase();
+    this.instance=mForm.controls.instance.value.toUpperCase();
+    this.cargando=true;
 
     switch (mForm.controls.operation.value) {
       case 'Generar XML':
@@ -59,9 +61,11 @@ export class AppComponent {
     this.mOperation.GenerateXMLFile(this.company, this.instance).subscribe(
       (resp) => {
         console.log("Archivo XML Creado exitosamente");
+        this.cargando=false;
       },
       (error) => {
         console.log("Problemas en la generación del archivo XML");
+        this.cargando=false;
       }
     );
   }
@@ -70,9 +74,11 @@ export class AppComponent {
     this.mOperation.GenerateJSONFile(this.company, this.instance).subscribe(
       (resp) => {
         console.log("Archivo JSON Creado exitosamente");
+        this.cargando=false;
       },
       (error) => {
         console.log("Problemas en la generación del archivo JSON");
+        this.cargando=false;
       }
     );
   }
@@ -85,6 +91,7 @@ export class AppComponent {
       },
       (error) => {
         console.log("Problemas en la generación/descarga del archivo XML");
+        this.cargando=false;
       }
     );
   }
@@ -97,6 +104,7 @@ export class AppComponent {
       },
       (error) => {
         console.log("Problemas en la generación/descarga del archivo JSON");
+        this.cargando=false;
       }
     );
   }
@@ -107,6 +115,7 @@ export class AppComponent {
           a.href = URL.createObjectURL(resp);
           a.download = (this.company + "-" + this.instance);
           a.click();
+          this.cargando=false;
   }
 
 }

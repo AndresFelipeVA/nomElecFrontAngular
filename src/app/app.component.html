@@ -19,45 +19,42 @@
 <form autocomplete="off" (ngSubmit)="guardar(mFormu)" #mFormu="ngForm">
   
   <div class="row mb-3">
-    <label class="col-2 col-form-label">Compañía</label>
+    <label class="col-sm-2 col-3 col-form-label">Compañía</label>
     <div class="col">
-      <select class="form-select"
+      <input class="form-control"
+              type="text"
               name="company"
               [ngModel]="company"
               [class.is-invalid]="companySel.invalid && companySel.touched"
-              required
-              #companySel="ngModel">
-            <option *ngFor="let company of companies"
-                    [value]="company">
-              {{company}}
-            </option>
-      </select>
-      <span *ngIf="companySel.invalid && companySel.touched" class="form-text text-danger">Debe seleccionar una compañía</span>
-
+              required minlength="2"
+              style="text-transform:uppercase"
+              placeholder="Digite compañía"
+              #companySel="ngModel"
+              [disabled]="cargando">
+      <span *ngIf="companySel.invalid && companySel.touched" class="form-text text-danger">Debe contener al menos 2 letras</span>
     </div>
   </div>
 
   <div class="row mb-3">
-    <label class="col-2 col-form-label">Instancia</label>
+    <label class="col-sm-2 col-3 col-form-label">Instancia</label>
     <div class="col">
-      <select class="form-select"
+      <input class="form-control"
+              type="text"
               name="instance"
               [ngModel]="instance"
               [class.is-invalid]="instanceSel.invalid && instanceSel.touched"
-              required
-              #instanceSel="ngModel">
-            <option *ngFor="let instance of instances"
-                    [value]="instance">
-              {{instance}}
-            </option>
-      </select>
-      <span *ngIf="instanceSel.invalid && instanceSel.touched" class="form-text text-danger">Debe seleccionar una instancia</span>
+              style="text-transform:uppercase"
+              required minlength="5"
+              placeholder="Digite instancia"
+              #instanceSel="ngModel"
+              [disabled]="cargando">
+      <span *ngIf="instanceSel.invalid && instanceSel.touched" class="form-text text-danger">Debe contener al menos 5 letras</span>
 
     </div>
   </div>
 
   <div class="row mb-3">
-    <label class="col-2 col-form-label">Operación</label>
+    <label class="col-sm-2 col-3 col-form-label">Operación</label>
     <div class="col">
       <div *ngFor="let operation of operations; let idOper=index" class="form-check">
         <input class="form-check-input"
@@ -67,7 +64,8 @@
             [value]="operation"
             [class.is-invalid]="operation.invalid && operation.touched"
             required
-            [ngModel]="operation">
+            [ngModel]="operation"
+            [disabled]="cargando">
         <label class="form-check-label" [for]="idOper">{{operation}}</label>
       </div>
 
@@ -75,8 +73,13 @@
   </div>
 
     <div class="d-grid">
-      <button type="submit" class="btn btn-outline-primary my-3">
+      <button *ngIf="!cargando" type="submit" class="btn btn-outline-primary my-3">
         Ejecutar operación
+      </button>
+
+      <button *ngIf="cargando" class="btn btn-primary" type="button" disabled>
+        <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+        Ejecutando...
       </button>
     </div>
 
