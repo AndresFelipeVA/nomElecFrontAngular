@@ -60,10 +60,12 @@ export class AppComponent {
   GenerateXMLFile() { 
     this.mOperation.GenerateXMLFile(this.company, this.instance).subscribe(
       (resp) => {
+        window.alert("Archivo XML Creado exitosamente");
         console.log("Archivo XML Creado exitosamente");
         this.cargando=false;
       },
       (error) => {
+        window.alert("Problemas en la generación del archivo XML");
         console.log("Problemas en la generación del archivo XML");
         this.cargando=false;
       }
@@ -73,10 +75,12 @@ export class AppComponent {
   GenerateJSONFile() {
     this.mOperation.GenerateJSONFile(this.company, this.instance).subscribe(
       (resp) => {
+        window.alert("Archivo JSON Creado exitosamente");
         console.log("Archivo JSON Creado exitosamente");
         this.cargando=false;
       },
       (error) => {
+        window.alert("Problemas en la generación del archivo JSON");
         console.log("Problemas en la generación del archivo JSON");
         this.cargando=false;
       }
@@ -86,10 +90,12 @@ export class AppComponent {
   DownloadXMLFile() {
     this.mOperation.DownloadXMLFile(this.company, this.instance).subscribe(
       (resp) => {
+        window.alert("Archivo XML Creado exitosamente");
         console.log("Archivo XML Creado exitosamente");
         this.download(resp);
       },
       (error) => {
+        window.alert("Problemas en la generación/descarga del archivo XML");
         console.log("Problemas en la generación/descarga del archivo XML");
         this.cargando=false;
       }
@@ -99,10 +105,12 @@ export class AppComponent {
   DownloadJSONFile() {
     this.mOperation.DownloadJSONFile(this.company, this.instance).subscribe(
       (resp) => {
+        window.alert("Archivo JSON Creado exitosamente");
         console.log("Archivo JSON Creado exitosamente");
         this.download(resp);
       },
       (error) => {
+        window.alert("Problemas en la generación/descarga del archivo JSON");
         console.log("Problemas en la generación/descarga del archivo JSON");
         this.cargando=false;
       }
